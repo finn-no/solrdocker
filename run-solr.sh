@@ -12,6 +12,12 @@ if [ -d /opt/solrhome ]; then
   export CMD_OPTS="$CMD_OPTS -s $SOLR_FOLDER"
 fi
 
+if [ ! -d /opt/solrdata ]; then
+  mkdir /opt/solrdata
+fi
+
+export CMD_OPTS="$CMD_OPTS -d /opt/solrdata"
+
 cd /opt/solr
 
 ./bin/solr $CMD_OPTS
