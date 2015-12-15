@@ -15,6 +15,7 @@ ENV SOLR_SHA256 84c0f04a23047946f54618a092d4510d88d7205a756b948208de9e5afb42f7cd
 ADD solr_jmx_exporter_config.json /opt/agent-bond/jmx_exporter_config.json
 
 RUN mkdir -p /opt/solr && \
+  mkdir -p /opt/solrdata && \
   wget -q -O /opt/solr.tgz http://apache.uib.no/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz && \
   echo "$SOLR_SHA256 */opt/solr.tgz" | sha256sum -c - && \
   tar -C /opt/solr -zxf /opt/solr.tgz && \
@@ -27,7 +28,7 @@ RUN mkdir -p /opt/solr && \
   rm -rf /opt/solr/contrib && \
   rm -rf /opt/solr/dist && \
   mkdir -p /opt/solr/server/solr/lib && \
-  chown -R $SOLR_USER:$SOLR_USER /opt/solr
+  chown -R $SOLR_USER:$SOLR_USER /opt/solr /opt/solrdata
 
 ENV RMI_PORT=28181
 
